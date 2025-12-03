@@ -1,29 +1,70 @@
 .header {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
+  align-items: center;
   background-color: #4C0463;
-  align-items: center; 
   padding: 10px 40px;
   border-bottom: 1px solid #eee;
+  width: 100%;
 }
 
 .logo {
-  flex-basis: 20%; 
+  flex-basis: 20%;
   font-size: 24px;
   font-weight: bold;
-  color: #FF6ECE
-  }
+  color: #FF6ECE;
+}
 
 .navbarContainer {
-  flex-basis: 60%; 
-  text-align: center;
+  flex-basis: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbarContainer nav {
+  display: flex;
+  gap: 25px;
 }
 
 .iconsContainer {
-  flex-basis: 20%; 
+  flex-basis: 20%;
   display: flex;
-  justify-content: flex-end; 
-  gap: 20px; 
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  color: #FF6ECE;
+}
+
+.userBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bienvenida {
+  font-weight: bold;
+  color: #FF6ECE;
+  font-size: 14px;
+  text-align: right;
+}
+
+.logoutBtn {
+  background-color: #e63946;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.logoutBtn:hover {
+  background-color: #b0222d;
+}
+
+.loginLink {
   color: #FF6ECE;
 }
 
@@ -34,18 +75,80 @@
 
 .contadorDeCarrito {
   position: absolute;
-  top: -8px; 
-  right: -10px; 
+  top: -8px;
+  right: -10px;
   background-color: rgb(228, 42, 42);
   color: white;
   border-radius: 50%;
   padding: 3px 6px;
   font-size: 11px;
   font-weight: bold;
-  line-height: 1;
 }
 
 .icono {
   font-size: 24px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .logo {
+    flex-basis: auto;
+    font-size: 22px;
+  }
+
+  .navbarContainer {
+    flex-basis: auto;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbarContainer nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .iconsContainer {
+    flex-basis: auto;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .userBox {
+    align-items: center;
+  }
+
+  .bienvenida {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 18px;
+  }
+
+  .navbarContainer nav {
+    gap: 12px;
+  }
+
+  .iconsContainer {
+    gap: 12px;
+  }
+
+  .icono {
+    font-size: 22px;
+  }
+
+  .contadorDeCarrito {
+    padding: 2px 4px;
+    font-size: 10px;
+  }
 }

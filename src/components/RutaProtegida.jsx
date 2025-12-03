@@ -1,7 +1,10 @@
 import { Navigate } from "react-router-dom";
-const RutaProtegida = ({estaAutenticado, children}) => {
+import { useAuthContext } from "../context/AuthContext";
+
+const RutaProtegida = ({children}) => {
+  const { usuario } = useAuthContext();
   
-  if(!estaAutenticado)
+  if(!usuario)
     return <Navigate to="/login" replace />;
   
   return children;

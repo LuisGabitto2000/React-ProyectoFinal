@@ -1,0 +1,39 @@
+/* FormProducto.module.css */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.formInputBase {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btnBase {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnPrimary {
+  background-color: #FF6ECE;
+  color: white;
+  border: none;
+}
+
+.btnSecondary {
+  background-color: #ddd;
+  border: none;
+}
