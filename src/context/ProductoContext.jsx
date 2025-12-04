@@ -6,6 +6,9 @@ export const ProductosProvider = ({ children }) => {
   const [productosAPI, setProductosAPI] = useState([]);
   const [productosCRUD, setProductosCRUD] = useState([]);
 
+  
+  const [edicionesAPI, setEdicionesAPI] = useState([]);
+
   const API_URL = "https://692f6c7a91e00bafccd78e74.mockapi.io/products";
 
   
@@ -22,46 +25,56 @@ export const ProductosProvider = ({ children }) => {
           precio: p.precio,
           imagen: p.imagen,
           categoria: p.categoria,
-          origen: "api", 
+          origen: "api",
         }));
 
-        setProductosAPI(normalizados);
+        
+        const fusionados = normalizados.map((p) => {
+          const editado = edicionesAPI.find((e) => e.id === p.id);
+          return editado ? { ...p, ...editado } : p;
+        });
+
+        setProductosAPI(fusionados);
       } catch (err) {
-        console.error("Error cargando productos de MockAPI:", err);
+        console.error("Error cargando productos:", err);
       }
     };
 
     fetchProductos();
-  }, []);
+  }, [edicionesAPI]); 
 
   
   const agregarProducto = (producto) => {
     const nuevo = {
       id: Date.now(),
-      nombre: producto.nombre,
-      descripcion: producto.descripcion,
-      precio: producto.precio,
-      imagen: producto.imagen,
-      categoria: producto.categoria,
+      ...producto,
       origen: "crud",
     };
-
     setProductosCRUD([...productosCRUD, nuevo]);
   };
 
+  
   const editarProducto = (productoEditado) => {
-    setProductosCRUD(
-      productosCRUD.map((p) =>
-        p.id === productoEditado.id ? productoEditado : p
-      )
-    );
+    if (productoEditado.origen === "crud") {
+      setProductosCRUD(
+        productosCRUD.map((p) =>
+          p.id === productoEditado.id ? productoEditado : p
+        )
+      );
+    } else {
+      
+      const nuevos = [
+        ...edicionesAPI.filter((e) => e.id !== productoEditado.id),
+        productoEditado,
+      ];
+      setEdicionesAPI(nuevos);
+    }
   };
 
   const eliminarProducto = (id) => {
     setProductosCRUD(productosCRUD.filter((p) => p.id !== id));
   };
 
-  
   const productos = [...productosCRUD, ...productosAPI];
 
   return (
