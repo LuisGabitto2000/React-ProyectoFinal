@@ -16,7 +16,7 @@ import { ProductosProvider } from "./context/ProductoContext";
 import { CarritoProvider } from "./context/CarritoContext";
 import { SearchProvider } from "./context/BusquedaContext";
 
-import "./App.css";
+import "./app.css";
 
 function App() {
   return (
