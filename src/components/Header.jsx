@@ -1,67 +1,75 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import styles from './Header.module.css';
-import UserIcon from '../assets/UserIcon';
-import BagIcon from '../assets/BagIcon';
-import { CarritoContext } from '../context/CarritoContext';
-import { useAuthContext } from '../context/AuthContext';
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+import styles from "./Header.module.css";
+import UserIcon from "../assets/UserIcon";
+import BagIcon from "../assets/BagIcon";
+import { CarritoContext } from "../context/CarritoContext";
+import { useAuthContext } from "../context/AuthContext";
+import BarraBusqueda from "./BarraBusqueda";
 
 const Header = () => {
   const { cantidadTotal } = useContext(CarritoContext);
   const { usuario, logout } = useAuthContext();
+  const [mostrarBusqueda, setMostrarBusqueda] = useState(false);
 
   const estaLogeado = !!usuario;
   const esAdmin = usuario?.rol === "admin";
 
   return (
-    <header className={styles.header}>
-      {/* Logo */}
-      <div className={styles.logo}>Outsider's Shop</div>
+    <>
+      <header className={styles.header}>
+        <div className={styles.logo}>Outsider's Shop</div>
 
-      {/* Navbar centrada */}
-      <div className={styles.navbarContainer}>
-        <Navbar esAdmin={esAdmin} />
-      </div>
-
-      {/* Íconos de usuario y carrito */}
-      <div className={styles.iconsContainer}>
-        <div className={styles.icono}>
-          {estaLogeado ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px", alignItems: "flex-end" }}>
-              <span style={{ fontWeight: "bold" }}>¡Bienvenido, {usuario.nombre}!</span>
-              <button
-                onClick={logout}
-                style={{
-                  backgroundColor: "#D44EC4",
-                  border: "none",
-                  padding: "6px 12px",
-                  borderRadius: "6px",
-                  color: "white",
-                  cursor: "pointer",
-                  fontSize: "0.9rem"
-                }}
-              >
-                🔓 Cerrar sesión
-              </button>
-            </div>
-          ) : (
-            <Link to="/login">
-              <UserIcon />
-            </Link>
-          )}
+        
+        <div className={styles.navbarContainer}>
+          <Navbar 
+            esAdmin={esAdmin} 
+            mostrarBusqueda={mostrarBusqueda} 
+            setMostrarBusqueda={setMostrarBusqueda} 
+          />
         </div>
 
-        <div className={styles.iconoDeCarrito}>
-          <Link to="/carrito">
-            <BagIcon className={styles.icono} />
-            {cantidadTotal > 0 && (
-              <span className={styles.contadorDeCarrito}>{cantidadTotal}</span>
+        
+        <div className={styles.iconsContainer}>
+          <div className={styles.icono}>
+            {estaLogeado ? (
+              <div className={styles.usuarioBox}>
+                <span className={styles.bienvenida}>
+                  ¡Hola, {usuario?.nombre ?? "Usuario"}!
+                </span>
+                <button onClick={logout} className={styles.logoutBtn}>
+                  Cerrar sesión
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className={styles.loginLink}>
+                <UserIcon />
+              </Link>
             )}
-          </Link>
+          </div>
+
+          <div className={styles.iconoDeCarrito}>
+            <Link
+              to="/carrito"
+              style={{ position: "relative", display: "inline-block" }}
+            >
+              <BagIcon className={styles.icono} />
+              {cantidadTotal > 0 && (
+                <span className={styles.contadorDeCarrito}>{cantidadTotal}</span>
+              )}
+            </Link>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      
+      {mostrarBusqueda && (
+        <div className={styles.searchBarWrapper}>
+          <BarraBusqueda />
+        </div>
+      )}
+    </>
   );
 };
 

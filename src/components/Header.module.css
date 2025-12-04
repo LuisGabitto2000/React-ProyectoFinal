@@ -120,6 +120,12 @@
     justify-content: center;
     gap: 16px;
   }
+  .searchButton {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
 
   .userBox {
     align-items: center;
@@ -151,4 +157,35 @@
     padding: 2px 4px;
     font-size: 10px;
   }
+}
+.searchButton {
+  background: transparent;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.searchButton svg {
+  stroke: #FF6ECE;               
+}
+
+.searchButton:hover {
+  background-color: #FF6ECE;     
+}
+
+.searchButton:hover svg {
+  stroke: white;                 
+}
+
+
+.searchDropdown {
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  margin-top: 10px;
+  z-index: 999;
 }

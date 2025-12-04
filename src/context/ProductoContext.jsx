@@ -62,7 +62,7 @@ export const ProductosProvider = ({ children }) => {
   };
 
   
-  const productos = [...productosAPI, ...productosCRUD];
+  const productos = [...productosCRUD, ...productosAPI];
 
   return (
     <ProductosContext.Provider

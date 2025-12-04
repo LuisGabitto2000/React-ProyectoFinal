@@ -11,7 +11,6 @@ const Admin = () => {
 
   const URL = "https://692f6c7a91e00bafccd78e74.mockapi.io/products";
 
-  
   useEffect(() => {
     const fetchApi = async () => {
       try {
@@ -27,9 +26,9 @@ const Admin = () => {
 
   
   const productosCombinados = [
-    ...productosApi, 
-    ...productosCrud.filter(
-      (pCrud) => !productosApi.some((pApi) => pApi.id === pCrud.id)
+    ...productosCrud,
+    ...productosApi.filter(
+      (pApi) => !productosCrud.some((pCrud) => pCrud.id === pApi.id)
     ),
   ];
 
@@ -100,7 +99,6 @@ const Admin = () => {
                 Editar
               </button>
 
-              
               {productosCrud.find((c) => c.id === p.id) && (
                 <button
                   onClick={() => eliminarProducto(p.id)}
